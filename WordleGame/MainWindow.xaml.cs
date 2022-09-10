@@ -18,18 +18,13 @@ namespace WordleGame
     public partial class MainWindow : Window
     {
         private Dictionary<StackPanel, List<TextBlock>> _dictionary;
-        private readonly int WIDTHGAMEAREA = 5;
-        private readonly int HEIGHTGAMEAREA = 6;
-        private int _indexPlaceStackPanel = 0;
-        private int _indexPlaceListTextBlock = 0;
-        private List<TextBlock> _currentList;
-       
+        public readonly int WIDTHGAMEAREA = 5;
+        public readonly int HEIGHTGAMEAREA = 6;
         public MainWindow()
         {
             _dictionary = new Dictionary<StackPanel, List<TextBlock>>();
             InitializeComponent();
             InitGameObjects();
-            _currentList = _dictionary.ElementAt(_indexPlaceStackPanel).Value;
         }
         private void InitGameObjects()
         {
@@ -76,28 +71,8 @@ namespace WordleGame
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             var window = Window.GetWindow(this);
-            window.KeyDown += Input_OnKeyDown;
-        }
-        
-        private void Input_OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (_indexPlaceStackPanel >= HEIGHTGAMEAREA) return;
-          
-            if (_indexPlaceListTextBlock >= WIDTHGAMEAREA)
-            {
-                ++_indexPlaceStackPanel;
-                _currentList = _dictionary.ElementAt(_indexPlaceStackPanel).Value;
-                _indexPlaceListTextBlock = 0;
-            }
-            if (e.Key == Key.Back)
-            {
-                _currentList[_indexPlaceListTextBlock-1].Text = "";
-                _indexPlaceListTextBlock--;
-                return;
-            }
-            _currentList[_indexPlaceListTextBlock].Text = e.Key.ToString();
-            ++_indexPlaceListTextBlock;    
-            e.Handled = true;
+            InputBehavior inputBehavior = new InputBehavior(_dictionary);
+            window.KeyDown += inputBehavior.Input_OnKeyDown;
         }
     }
 }
