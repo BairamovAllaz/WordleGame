@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:WordleGame"
         mc:Ignorable="d"
         Title="oMainWindow" Height="450" Width="800"
-        Loaded="MainWindow_OnLoaded">
+        Loaded="MainWindow_OnLoaded"
+        Background="Black">
         <StackPanel x:Name = "GameArea">
                 
         </StackPanel>

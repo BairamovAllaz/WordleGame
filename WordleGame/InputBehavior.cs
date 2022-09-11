@@ -39,7 +39,6 @@ public class InputBehavior
             e.Handled = true;
         }
     }
-
     private bool IsKeyLetter(KeyEventArgs e) => e.Key >= Key.A && e.Key <= Key.Z;
     private bool IsIndexTextBlockIsLastWidthColumn() => _indexPlaceListTextBlock >= 5;
 
@@ -57,16 +56,13 @@ public class InputBehavior
         {
             _currentList[_indexPlaceListTextBlock].Text = e.Key.ToString();
         }
-
         ++_indexPlaceListTextBlock;
     }
-
     private void SetRowMapAndSetList()
     {
         ++_indexPlaceStackPanel;
         _currentList = _dictionary.ElementAt(_indexPlaceStackPanel).Value;
         _indexPlaceListTextBlock = 0;
     }
-
     private bool KeyIsBackSpaceAndNotZero(KeyEventArgs e) => e.Key == Key.Back && _indexPlaceListTextBlock > 0;
 }
