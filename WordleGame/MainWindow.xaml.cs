@@ -24,7 +24,9 @@ namespace WordleGame
         {
             _dictionary = new Dictionary<StackPanel, List<TextBlock>>();
             InitializeComponent();
+            WebApiHandler webApiHandler = new WebApiHandler(); 
             InitGameObjects();
+            List<string> list = webApiHandler.GetWords();
         }
         public void InitGameObjects()
         {
