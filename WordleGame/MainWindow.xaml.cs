@@ -26,7 +26,8 @@ namespace WordleGame
             InitializeComponent();
             InitGameObjects();
         }
-        private void InitGameObjects()
+
+        public void InitGameObjects()
         {
             InitGameAreaObject();
             for (int i = 0; i < HEIGHTGAMEAREA; i++)
@@ -35,17 +36,26 @@ namespace WordleGame
                 parent.Name = $"box{i}";
                 parent.Orientation = Orientation.Horizontal;
                 GameArea.Children.Add(parent);
-                List<TextBlock> buffer = new List<TextBlock>(); 
+                List<TextBlock> buffer = new List<TextBlock>();
                 for (int j = 0; j < WIDTHGAMEAREA; j++)
                 {
-
                     TextBlock textBlock = CreateAndInitTextBlockObject(nameOfTextBlock: j);
                     parent.Children.Add(textBlock);
                     buffer.Add(textBlock);
                 }
-                _dictionary.Add(parent,buffer);
+                _dictionary.Add(parent, buffer);
             }
         }
+
+        private void InitGameAreaObject()
+        {
+            GameArea.HorizontalAlignment = HorizontalAlignment.Center;
+            GameArea.VerticalAlignment = VerticalAlignment.Center;
+            GameArea.Width = 300;
+            GameArea.Height = 300;
+            GameArea.Background = new SolidColorBrush(Colors.Beige);
+        }
+
         private TextBlock CreateAndInitTextBlockObject(int nameOfTextBlock)
         {
             return new TextBlock
@@ -59,15 +69,7 @@ namespace WordleGame
                 TextAlignment = TextAlignment.Center,
             };
         }
-        private void InitGameAreaObject()
-        {
-            GameArea.HorizontalAlignment = HorizontalAlignment.Center;
-            GameArea.VerticalAlignment = VerticalAlignment.Center;
-            GameArea.Width = 300;
-            GameArea.Height = 300;
-            GameArea.Background = new SolidColorBrush(Colors.Beige); 
-        }
-
+        
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             var window = Window.GetWindow(this);
