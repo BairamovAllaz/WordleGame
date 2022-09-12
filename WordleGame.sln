@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleGame", "WordleGame\WordleGame.csproj", "{7F8022A0-350F-42CF-859D-EC99FDD7F772}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleGame.Test", "WordleGame.Test\WordleGame.Test.csproj", "{C3E7E6E3-66CA-4B94-891E-A57E32BD0654}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{7F8022A0-350F-42CF-859D-EC99FDD7F772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F8022A0-350F-42CF-859D-EC99FDD7F772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F8022A0-350F-42CF-859D-EC99FDD7F772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E7E6E3-66CA-4B94-891E-A57E32BD0654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E7E6E3-66CA-4B94-891E-A57E32BD0654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E7E6E3-66CA-4B94-891E-A57E32BD0654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E7E6E3-66CA-4B94-891E-A57E32BD0654}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

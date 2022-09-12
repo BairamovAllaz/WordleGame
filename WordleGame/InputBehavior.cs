@@ -10,7 +10,7 @@ namespace WordleGame;
 
 public class InputBehavior
 {
-    private Dictionary<StackPanel, List<TextBlock>> _dictionary;
+    public Dictionary<StackPanel, List<TextBlock>> _dictionary { get; set; }
     private int _indexPlaceStackPanel;
     private int _indexPlaceListTextBlock;
     private List<TextBlock> _currentList;
@@ -20,13 +20,19 @@ public class InputBehavior
         _dictionary = dictionary;
         _currentList = _dictionary.ElementAt(_indexPlaceStackPanel).Value;
     }
+    public InputBehavior(){}
 
     public void Input_OnKeyDown(object sender, KeyEventArgs e)
+    {
+        e.Handled = behavs(e.Key);
+    }
+
+    public bool behavs(Key e)
     {
         if (KeyIsBackSpaceAndNotZero(e))
         {
             ClearCurrentTextBlockText();
-            return;
+            return true;
         }
         if (IsKeyLetter(e))
         {
@@ -34,27 +40,28 @@ public class InputBehavior
             {
                 SetRowMapAndSetList();
             }
-            else if (IsIndexStackPanelIsLastHeightColumn()) return;
+            else if (IsIndexStackPanelIsLastHeightColumn()) return true;
             WriteToCurrentTextBlock(e);
-            e.Handled = true;
         }
-    }
-    private bool IsKeyLetter(KeyEventArgs e) => e.Key >= Key.A && e.Key <= Key.Z;
+        return true;
+    }    
+    
+    private bool IsKeyLetter(Key e) => e >= Key.A && e <= Key.Z;
     private bool IsIndexTextBlockIsLastWidthColumn() => _indexPlaceListTextBlock >= 5;
 
     private bool IsIndexStackPanelIsLastHeightColumn() => _indexPlaceStackPanel >= 6;
 
-    private void ClearCurrentTextBlockText()
+    public void ClearCurrentTextBlockText()
     {
         _currentList[_indexPlaceListTextBlock - 1].Text = "";
         _indexPlaceListTextBlock--;
     }
 
-    private void WriteToCurrentTextBlock(KeyEventArgs e)
+    private void WriteToCurrentTextBlock(Key e)
     {
-        if (e.Key != Key.Back)
+        if (e != Key.Back)
         {
-            _currentList[_indexPlaceListTextBlock].Text = e.Key.ToString();
+            _currentList[_indexPlaceListTextBlock].Text = e.ToString();
         }
         ++_indexPlaceListTextBlock;
     }
@@ -64,5 +71,5 @@ public class InputBehavior
         _currentList = _dictionary.ElementAt(_indexPlaceStackPanel).Value;
         _indexPlaceListTextBlock = 0;
     }
-    private bool KeyIsBackSpaceAndNotZero(KeyEventArgs e) => e.Key == Key.Back && _indexPlaceListTextBlock > 0;
+    public bool KeyIsBackSpaceAndNotZero(Key e) => e == Key.Back && _indexPlaceListTextBlock > 0;
 }

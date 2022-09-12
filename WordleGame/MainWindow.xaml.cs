@@ -26,7 +26,8 @@ namespace WordleGame
             InitializeComponent();
             WebApiHandler webApiHandler = new WebApiHandler(); 
             InitGameObjects();
-            List<string> list = webApiHandler.GetWords();
+           
+            //List<string> list = webApiHandler.GetWords();
         }
         public void InitGameObjects()
         {

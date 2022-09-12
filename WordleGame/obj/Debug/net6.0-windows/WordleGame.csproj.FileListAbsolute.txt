@@ -19,3 +19,5 @@ C:\Users\ellez\OneDrive\Programing\Csharp\WordleGame\WordleGame\obj\Debug\net6.0
 C:\Users\ellez\OneDrive\Programing\Csharp\WordleGame\WordleGame\obj\Debug\net6.0-windows\WordleGame.pdb
 C:\Users\ellez\OneDrive\Programing\Csharp\WordleGame\WordleGame\obj\Debug\net6.0-windows\WordleGame.genruntimeconfig.cache
 C:\Users\ellez\OneDrive\Programing\Csharp\WordleGame\WordleGame\obj\Debug\net6.0-windows\ref\WordleGame.dll
+C:\Users\ellez\OneDrive\Programing\Csharp\WordleGame\WordleGame\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\ellez\OneDrive\Programing\Csharp\WordleGame\WordleGame\obj\Debug\net6.0-windows\WordleGame.csproj.CopyComplete
