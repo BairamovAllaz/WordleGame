@@ -47,7 +47,6 @@ public class Tests
         bool actual = inputBehavior.KeyBoardMoves((Key.A));
         Assert.IsFalse(actual);
     }
-    
     [Test]
     [Apartment((ApartmentState.STA))]
     public void KeyBoardMoves_PreesedLetter_ChangesWIdthAndHeightAndSetList()
