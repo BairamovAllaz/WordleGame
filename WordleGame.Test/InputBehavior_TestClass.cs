@@ -65,7 +65,7 @@ public class Tests
         };
         inputBehavior.KeyBoardMoves((Key.A));
         Assert.AreEqual(Listt,inputBehavior.CurrentList);
-        Assert.AreEqual(1,inputBehavior.IndexPlaceStackPanel);
+        Assert.AreEqual(0,inputBehavior.IndexPlaceStackPanel);
         Assert.AreEqual(0,inputBehavior.IndexPlaceListTextBlock);
     }
 }
