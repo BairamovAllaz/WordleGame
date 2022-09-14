@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Windows;
@@ -10,66 +11,78 @@ namespace WordleGame;
 
 public class InputBehavior
 {
-    public Dictionary<StackPanel, List<TextBlock>> _dictionary { get; set; }
-    private int _indexPlaceStackPanel;
-    private int _indexPlaceListTextBlock;
-    private List<TextBlock> _currentList;
-
-    public InputBehavior(Dictionary<StackPanel, List<TextBlock>> dictionary)
+    public Dictionary<StackPanel, List<TextBlock>> GameDictionary { get; set; }
+    public int IndexPlaceStackPanel { get; set; }
+    public int IndexPlaceListTextBlock { get; set; }
+    public  List<TextBlock> CurrentList { get; set; }
+    public InputBehavior(Dictionary<StackPanel, List<TextBlock>> game)
     {
-        _dictionary = dictionary;
-        _currentList = _dictionary.ElementAt(_indexPlaceStackPanel).Value;
+        GameDictionary = game;
+        CurrentList = GameDictionary.ElementAt(IndexPlaceStackPanel).Value;
     }
     public InputBehavior(){}
-
     public void Input_OnKeyDown(object sender, KeyEventArgs e)
     {
-        e.Handled = behavs(e.Key);
+        try
+        {
+            e.Handled = KeyBoardMoves(e.Key);
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            throw;
+        }
     }
 
-    public bool behavs(Key e)
+    public bool KeyBoardMoves(Key e)
     {
         if (KeyIsBackSpaceAndNotZero(e))
         {
             ClearCurrentTextBlockText();
             return true;
         }
+
         if (IsKeyLetter(e))
         {
-            if (IsIndexTextBlockIsLastWidthColumn())
+            if (IsIndexTextBlockIsLastWidthColumn() && !(IsIndexStackPanelIsLastHeightColumn()))
             {
                 SetRowMapAndSetList();
             }
-            else if (IsIndexStackPanelIsLastHeightColumn()) return true;
+            else return false;
             WriteToCurrentTextBlock(e);
+        }
+        else
+        {
+            return false;
         }
         return true;
     }    
     
     private bool IsKeyLetter(Key e) => e >= Key.A && e <= Key.Z;
-    private bool IsIndexTextBlockIsLastWidthColumn() => _indexPlaceListTextBlock >= 5;
 
-    private bool IsIndexStackPanelIsLastHeightColumn() => _indexPlaceStackPanel >= 6;
+    private bool IsIndexTextBlockIsLastWidthColumn() => IndexPlaceListTextBlock >= 5;
 
-    public void ClearCurrentTextBlockText()
+    private bool IsIndexStackPanelIsLastHeightColumn() => IndexPlaceStackPanel - 1 >= 6;
+
+        public void ClearCurrentTextBlockText()
     {
-        _currentList[_indexPlaceListTextBlock - 1].Text = "";
-        _indexPlaceListTextBlock--;
+        CurrentList[IndexPlaceListTextBlock - 1].Text = "";
+        IndexPlaceListTextBlock--;
     }
 
     private void WriteToCurrentTextBlock(Key e)
     {
         if (e != Key.Back)
         {
-            _currentList[_indexPlaceListTextBlock].Text = e.ToString();
+            CurrentList[IndexPlaceListTextBlock].Text = e.ToString();
         }
-        ++_indexPlaceListTextBlock;
+        ++IndexPlaceListTextBlock;
     }
     private void SetRowMapAndSetList()
     {
-        ++_indexPlaceStackPanel;
-        _currentList = _dictionary.ElementAt(_indexPlaceStackPanel).Value;
-        _indexPlaceListTextBlock = 0;
+        ++IndexPlaceStackPanel;
+        CurrentList = GameDictionary.ElementAt(IndexPlaceStackPanel).Value;
+        IndexPlaceListTextBlock = 0;
     }
-    public bool KeyIsBackSpaceAndNotZero(Key e) => e == Key.Back && _indexPlaceListTextBlock > 0;
+    public bool KeyIsBackSpaceAndNotZero(Key e) => e == Key.Back && IndexPlaceListTextBlock > 0;
 }
