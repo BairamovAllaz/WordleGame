@@ -21,8 +21,9 @@ public class Tests
         DictionaryToTest = new Dictionary<StackPanel, List<TextBlock>>();
         ListToTest = new List<TextBlock>()
         {
-            new TextBlock()
+            new TextBlock(),
         };
+        DictionaryToTest.Add(new StackPanel(),ListToTest);
         DictionaryToTest.Add(new StackPanel(),ListToTest);
     }
 
@@ -66,12 +67,11 @@ public class Tests
         InputBehavior inputBehavior = new InputBehavior(DictionaryToTest)
         {
             IndexPlaceStackPanel = 0,
-            IndexPlaceListTextBlock = 0
+            IndexPlaceListTextBlock = 5
         };
-        DictionaryToTest.ElementAt(0).Value[0].Text = "A";
         inputBehavior.KeyBoardMoves((Key.A));
         Assert.AreEqual(ListToTest,inputBehavior.CurrentList);
-        Assert.AreEqual(0,inputBehavior.IndexPlaceStackPanel);
-        Assert.AreEqual(1,inputBehavior.IndexPlaceListTextBlock);
+        Assert.AreEqual(1,inputBehavior.IndexPlaceStackPanel);
+        Assert.AreEqual(0,inputBehavior.IndexPlaceListTextBlock);
     }
 }

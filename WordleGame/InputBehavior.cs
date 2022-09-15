@@ -51,7 +51,10 @@ public class InputBehavior
                 SetRowMapAndSetList();
             }
             else if(IsIndexStackPanelIsLastHeightColumn()) return true;
-            WriteToCurrentTextBlock(e);
+            else
+            {
+                WriteToCurrentTextBlock(e);
+            }
         }
         else
         {
@@ -66,7 +69,7 @@ public class InputBehavior
 
     private bool IsIndexStackPanelIsLastHeightColumn() => IndexPlaceStackPanel >= 6;
 
-        public void ClearCurrentTextBlockText()
+    private void ClearCurrentTextBlockText()
     {
         CurrentList[IndexPlaceListTextBlock - 1].Text = "";
         IndexPlaceListTextBlock--;
@@ -86,5 +89,5 @@ public class InputBehavior
         CurrentList = GameDictionary.ElementAt(IndexPlaceStackPanel).Value;
         IndexPlaceListTextBlock = 0;
     }
-    public bool KeyIsBackSpaceAndNotZero(Key e) => e == Key.Back && IndexPlaceListTextBlock > 0;
+    private bool KeyIsBackSpaceAndNotZero(Key e) => e == Key.Back && IndexPlaceListTextBlock > 0;
 }
