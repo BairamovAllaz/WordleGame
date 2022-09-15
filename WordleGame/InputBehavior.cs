@@ -20,7 +20,9 @@ public class InputBehavior
         GameDictionary = game;
         CurrentList = GameDictionary.ElementAt(IndexPlaceStackPanel).Value;
     }
-    public InputBehavior(){}
+    public InputBehavior()
+    {
+    }
     public void Input_OnKeyDown(object sender, KeyEventArgs e)
     {
         try
@@ -33,7 +35,7 @@ public class InputBehavior
             throw;
         }
     }
-
+    
     public bool KeyBoardMoves(Key e)
     {
         if (KeyIsBackSpaceAndNotZero(e))
@@ -44,11 +46,11 @@ public class InputBehavior
 
         if (IsKeyLetter(e))
         {
-            if (IsIndexTextBlockIsLastWidthColumn() && !(IsIndexStackPanelIsLastHeightColumn()))
+            if (IsIndexTextBlockIsLastWidthColumn())
             {
                 SetRowMapAndSetList();
             }
-            else return false;
+            else if(IsIndexStackPanelIsLastHeightColumn()) return true;
             WriteToCurrentTextBlock(e);
         }
         else
@@ -62,7 +64,7 @@ public class InputBehavior
 
     private bool IsIndexTextBlockIsLastWidthColumn() => IndexPlaceListTextBlock >= 5;
 
-    private bool IsIndexStackPanelIsLastHeightColumn() => IndexPlaceStackPanel - 1 >= 6;
+    private bool IsIndexStackPanelIsLastHeightColumn() => IndexPlaceStackPanel >= 6;
 
         public void ClearCurrentTextBlockText()
     {

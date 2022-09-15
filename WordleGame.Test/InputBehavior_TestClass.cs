@@ -13,20 +13,33 @@ namespace WordleGame.Test;
 
 public class Tests
 {
+    public Dictionary<StackPanel, List<TextBlock>> DictionaryToTest;
+    public List<TextBlock> ListToTest;
+    [SetUp]
+    public void Init()
+    {
+        DictionaryToTest = new Dictionary<StackPanel, List<TextBlock>>();
+        ListToTest = new List<TextBlock>()
+        {
+            new TextBlock()
+        };
+        DictionaryToTest.Add(new StackPanel(),ListToTest);
+    }
+
+    [TearDown]
+    public void CleanUp()
+    {
+        DictionaryToTest.Clear();
+    }
     [Test]
     [Apartment((ApartmentState.STA))]
     public void KeyBoardMoves_PressBackButton_ReturnsEmptyString()
     {
-            Dictionary<StackPanel, List<TextBlock>> dictionary = new Dictionary<StackPanel,List<TextBlock>>();
-            dictionary.Add(new StackPanel(),new List<TextBlock>
-            {
-                new TextBlock()
-            });
-            dictionary.ElementAt(0).Value[0].Text = "A";
-            InputBehavior inputBehavior = new InputBehavior(dictionary);
+            DictionaryToTest.ElementAt(0).Value[0].Text = "A";
+            InputBehavior inputBehavior = new InputBehavior(DictionaryToTest);
             inputBehavior.IndexPlaceListTextBlock = 1;
             inputBehavior.KeyBoardMoves(Key.Back);
-            Assert.AreEqual("",dictionary.ElementAt(0).Value[0].Text);
+            Assert.AreEqual("",DictionaryToTest.ElementAt(0).Value[0].Text);
             Assert.AreEqual(0,inputBehavior.IndexPlaceStackPanel);
     }
     [Test]
@@ -39,33 +52,26 @@ public class Tests
     }
     [Test]
     [Apartment((ApartmentState.STA))]
-    public void KeyBoardMoves_PressLetterDictianoryWidthAndHeightOutRange_ReturnsFalse()
+    public void KeyBoardMoves_PressLetterDictianoryWidthAndHeightOutRange_ThrowsArgumentNullException()
     {
         InputBehavior inputBehavior = new InputBehavior();
         inputBehavior.IndexPlaceStackPanel = 7;
         inputBehavior.IndexPlaceListTextBlock = 7;
-        bool actual = inputBehavior.KeyBoardMoves((Key.A));
-        Assert.IsFalse(actual);
+        Assert.Throws<ArgumentNullException>(() => inputBehavior.KeyBoardMoves(Key.A));
     }
     [Test]
     [Apartment((ApartmentState.STA))]
     public void KeyBoardMoves_PreesedLetter_ChangesWIdthAndHeightAndSetList()
     {
-        List<TextBlock> Listt = new List<TextBlock>()
-        {
-            new TextBlock()
-        };
-        Dictionary<StackPanel, List<TextBlock>> dictionary = new Dictionary<StackPanel, List<TextBlock>>();
-        dictionary.Add(new StackPanel(),Listt);
-        dictionary.ElementAt(0).Value[0].Text = "A";
-        InputBehavior inputBehavior = new InputBehavior(dictionary)
+        InputBehavior inputBehavior = new InputBehavior(DictionaryToTest)
         {
             IndexPlaceStackPanel = 0,
             IndexPlaceListTextBlock = 0
         };
+        DictionaryToTest.ElementAt(0).Value[0].Text = "A";
         inputBehavior.KeyBoardMoves((Key.A));
-        Assert.AreEqual(Listt,inputBehavior.CurrentList);
+        Assert.AreEqual(ListToTest,inputBehavior.CurrentList);
         Assert.AreEqual(0,inputBehavior.IndexPlaceStackPanel);
-        Assert.AreEqual(0,inputBehavior.IndexPlaceListTextBlock);
+        Assert.AreEqual(1,inputBehavior.IndexPlaceListTextBlock);
     }
 }
