@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -8,25 +11,21 @@ namespace WordleGame;
 
 public class WebApiHandler
 {
-    private List<string> _words;
     private HttpClient _httpClient;
     private readonly string _path = "https://api.frontendexpert.io/api/fe/wordle-words";
 
-    public WebApiHandler()
+    public WebApiHandler(HttpClient httpClient)
     {
-        _words = new List<string>();
-        _httpClient = new HttpClient();
+        _httpClient = httpClient;
     }
-
-    public async Task<List<string>> GetWords()
+    public async Task<string> GetWords()
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync(_path);
-        string json;
-        if (responseMessage.IsSuccessStatusCode)
+        var responsemessage = await _httpClient.GetAsync(_path);
+        if (responsemessage.IsSuccessStatusCode)
         {
-            json = await responseMessage.Content.ReadAsStringAsync();
-            _words = JsonConvert.DeserializeObject<List<string>>(json);
+            var stream = await responsemessage.Content.ReadAsStringAsync();
+            return stream;
         }
-        return _words;
+        return "";
     }
 }

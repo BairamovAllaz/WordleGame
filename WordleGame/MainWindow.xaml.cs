@@ -24,7 +24,9 @@ namespace WordleGame
         {
             _dictionary = new Dictionary<StackPanel, List<TextBlock>>();
             InitializeComponent();
-            WebApiHandler webApiHandler = new WebApiHandler(); 
+            //WebApiHandler webApiHandler = new WebApiHandler();
+            /*var result = Task.Run(async () => await webApiHandler.GetWords()).Result;
+            MessageBox.Show(result);*/
             InitGameObjects();
            
             //List<string> list = webApiHandler.GetWords();
