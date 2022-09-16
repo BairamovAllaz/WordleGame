@@ -24,12 +24,7 @@ namespace WordleGame
         {
             _dictionary = new Dictionary<StackPanel, List<TextBlock>>();
             InitializeComponent();
-            //WebApiHandler webApiHandler = new WebApiHandler();
-            /*var result = Task.Run(async () => await webApiHandler.GetWords()).Result;
-            MessageBox.Show(result);*/
             InitGameObjects();
-           
-            //List<string> list = webApiHandler.GetWords();
         }
         public void InitGameObjects()
         {
@@ -41,7 +36,7 @@ namespace WordleGame
                 List<TextBlock> textBlockColumns = new List<TextBlock>();
                 for (int j = 0; j < WIDTHGAMEAREA; j++)
                 {
-                    TextBlock textBlock = CreateAndInitTextBlockObject(nameOfTextBlock: j);
+                    TextBlock textBlock = CreateAndInitTextBlockObject();
                     parent.Children.Add(textBlock);
                     textBlockColumns.Add(textBlock);
                 }
@@ -50,9 +45,10 @@ namespace WordleGame
         }
         private static StackPanel CreateParentStackPanel(int parentName)
         {
-            StackPanel parent = new StackPanel();
-            parent.Name = $"box{parentName}";
-            parent.Orientation = Orientation.Horizontal;
+            StackPanel parent = new StackPanel()
+            {
+                Orientation = Orientation.Horizontal
+            };
             return parent;
         }
         private void InitGameAreaObject()
@@ -64,13 +60,13 @@ namespace WordleGame
             GameArea.Background = new SolidColorBrush(Colors.Black);
         }
 
-        private TextBlock CreateAndInitTextBlockObject(int nameOfTextBlock)
+        private TextBlock CreateAndInitTextBlockObject()
         {
             return new TextBlock
             {
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
-                Text = $"N{nameOfTextBlock}",
+                Text = "*",
                 Width = 60,
                 Height = 60,
                 FontSize = 20,
